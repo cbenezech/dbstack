@@ -1,0 +1,8 @@
+[Unit]
+Description="Run script after 5 minutes of boot"
+
+[Timer]
+OnBootSec=5min
+
+[Install]
+WantedBy=default.target

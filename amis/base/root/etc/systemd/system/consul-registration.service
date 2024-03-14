@@ -1,0 +1,10 @@
+[Unit]
+Description=Run script at startup
+
+[Service]
+Type=oneshot
+ExecStart=/root/stack/consul/registration.sh
+TimeoutStartSec=0
+
+[Install]
+WantedBy=default.target

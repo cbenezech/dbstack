@@ -1,0 +1,7 @@
+service:
+  docker:
+    running: true
+    enabled: true
+  consul-registration:
+    running: false
+    enabled: true

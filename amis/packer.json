@@ -1,0 +1,141 @@
+{
+  "builders": [
+    {
+        "name": "base",
+        "type": "openstack",
+        "username": "{{user `ovh_os_username`}}",
+        "password": "{{user `ovh_os_key`}}",
+        "tenant_id": "{{user `ovh_project`}}",
+        "region": "{{user `ovh_region`}}",
+        "identity_endpoint": "https://auth.cloud.ovh.net/",
+        "image_name": "cbenezech-base",
+        "ssh_username": "ubuntu",
+        "source_image_filter": {
+          "filters": {
+            "name": "Ubuntu 22.10",
+            "visibility": "Public",
+            "owner": "9386d7837e514fc080082efe4892af59",
+            "properties": {
+                "distro_family": "ubuntu"
+            }
+          },
+          "most_recent": true
+        },
+        "flavor": "d2-2",
+        "ssh_ip_version": "4",
+        "networks": [
+            "{{user `ovh_os_network_id`}}"
+        ]
+    },
+    {
+      "name": "postgresql",
+      "type": "openstack",
+      "username": "{{user `ovh_os_username`}}",
+      "password": "{{user `ovh_os_key`}}",
+      "tenant_id": "{{user `ovh_project`}}",
+      "region": "{{user `ovh_region`}}",
+      "identity_endpoint": "https://auth.cloud.ovh.net/",
+      "image_name": "cbenezech-postgresql",
+      "ssh_username": "ubuntu",
+      "source_image_filter": {
+        "filters": {
+          "name": "cbenezech-base",
+          "visibility": "private",
+          "owner": "{{user `ovh_project`}}"
+        },
+        "most_recent": true
+      },
+      "flavor": "d2-2",
+      "ssh_ip_version": "4",
+      "networks": [
+          "{{user `ovh_os_network_id`}}"
+      ]
+    },
+    {
+      "name": "haproxy",
+      "type": "openstack",
+      "username": "{{user `ovh_os_username`}}",
+      "password": "{{user `ovh_os_key`}}",
+      "tenant_id": "{{user `ovh_project`}}",
+      "region": "{{user `ovh_region`}}",
+      "identity_endpoint": "https://auth.cloud.ovh.net/",
+      "image_name": "cbenezech-haproxy",
+      "ssh_username": "ubuntu",
+      "source_image_filter": {
+        "filters": {
+          "name": "cbenezech-base",
+          "visibility": "private",
+          "owner": "{{user `ovh_project`}}"
+        },
+        "most_recent": true
+      },
+      "flavor": "d2-2",
+      "ssh_ip_version": "4",
+      "networks": [
+          "{{user `ovh_os_network_id`}}"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "destination": "/tmp",
+      "source": "{{ build_name }}/root",
+      "type": "file"
+    },
+    {
+      "destination": "/tmp",
+      "source": "{{ build_name }}/tests",
+      "type": "file"
+    },
+    {
+      "execute_command": "sudo -E -S bash '{{.Path}}'",
+      "scripts": [
+        "scripts/pack-begin.sh"
+      ],
+      "type": "shell"
+    },
+    {
+      "execute_command": "sudo -E -S bash '{{.Path}}'",
+      "scripts": [
+        "{{ build_name }}/scripts/base.sh"
+      ],
+      "type": "shell"
+    },
+    {
+      "execute_command": "sudo -E -S bash '{{.Path}}'",
+      "only": [
+        "base"
+      ],
+      "scripts": [
+        "base/scripts/sys.sh",
+        "base/scripts/user.sh",
+        "base/scripts/goss.sh",
+        "base/scripts/consul.sh"
+      ],
+      "type": "shell"
+    },
+    {
+      "scripts": [
+        "scripts/pack-test.sh"
+      ],
+      "type": "shell",
+      "execute_command": "sudo -E -S bash '{{.Path}}'"
+    },
+    {
+      "execute_command": "sudo -E -S bash '{{.Path}}'",
+      "scripts": [
+        "scripts/pack-end.sh"
+      ],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "ovh_os_username": "{{env `OS_USERNAME`}}",
+    "ovh_os_password": "{{env `OS_PASSWORD`}}",
+    "ovh_project": "{{env `OS_PROJECT_ID`}}",
+    "ovh_region": "{{env `OS_REGION_NAME`}}",
+    "ovh_os_source_id": "{{env `SOURCE_ID`}}",
+    "ovh_os_flavor_id": "{{env `FLAVOR_ID`}}",
+    "ovh_os_network_id": "{{env `NETWORK_ID`}}"
+  }
+}

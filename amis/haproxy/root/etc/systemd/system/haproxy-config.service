@@ -1,0 +1,17 @@
+[Unit]
+Description=haproxy configuration
+Requires=network-online.target
+After=network-online.target consul-registration.service 
+
+[Service]
+EnvironmentFile=/etc/environment
+Restart=on-failure
+ExecStart=/root/stack/haproxy/haproxy-cfg.sh
+SuccessExitStatus=12
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+RestartSec=10s
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target
