@@ -1,0 +1,2 @@
+export FLAVOR_ID=`openstack flavor list -f json | jq -r '.[] | select(.Name == "b2-7-flex") | .ID'`
+export NETWORK_ID=`openstack network list -f json | jq -r '.[] | select(.Name == "Ext-Net") | .ID'`

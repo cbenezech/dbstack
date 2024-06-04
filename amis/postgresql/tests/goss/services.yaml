@@ -1,0 +1,7 @@
+service:
+  patroni:
+    running: false
+    enabled: true
+  postgresql:
+    running: false
+    enabled: true

@@ -1,0 +1,10 @@
+service:
+  haproxy:
+    running: true
+    enabled: true
+  haproxy-config:
+    running: false
+    enabled: true
+  apache2:
+    running: true
+    enabled: true

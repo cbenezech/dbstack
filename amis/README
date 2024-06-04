@@ -1,0 +1,8 @@
+# Deploy base
+packer build -only=base packer.json
+
+# Deploy all the others
+packer build -except=base packer.json
+
+# deploy all
+packer build -only=base packer.json && packer build -except=base packer.json

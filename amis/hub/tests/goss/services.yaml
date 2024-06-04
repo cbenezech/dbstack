@@ -1,0 +1,7 @@
+service:
+  apache2:
+    running: false
+    enabled: true
+  redis:
+    running: false
+    enabled: true
