@@ -12,7 +12,7 @@
         "ssh_username": "ubuntu",
         "source_image_filter": {
           "filters": {
-            "name": "Ubuntu 22.10",
+            "name": "Ubuntu 22.04",
             "visibility": "Public",
             "owner": "9386d7837e514fc080082efe4892af59",
             "properties": {
