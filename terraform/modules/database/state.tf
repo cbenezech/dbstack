@@ -1,5 +1,6 @@
 terraform {
-  backend "swift" {
+  backend "local" {
+    path = "/home/cbenezech/development/dbstack/terraform/states/database.tfstate"
   }
 
   required_providers {

@@ -14,4 +14,4 @@ chmod +x /root/stack/consul/start-server.sh
 systemctl enable consul-registration.service
 
 # download consul image
-docker pull consul:latest
+docker pull consul:1.15

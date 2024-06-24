@@ -1,9 +1,6 @@
 data "terraform_remote_state" "stack" {
-  backend = "swift"
-
+  backend = "local"
   config = {
-    container = "cbenezech-gra-terraform-stack"
-    region_name = "GRA"
-    cloud = "openstack"
+    path = "/home/cbenezech/development/dbstack/terraform/states/stack.tfstate"
   }
 }

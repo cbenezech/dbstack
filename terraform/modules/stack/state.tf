@@ -1,7 +1,8 @@
 terraform {
-    backend "swift" {
+  backend "local" {
+    path = "/home/cbenezech/development/dbstack/terraform/states/stack.tfstate"
   }
-
+  
   required_providers {
     openstack = {
       source  = "terraform-provider-openstack/openstack"

@@ -19,5 +19,5 @@ include {
 }
 
 inputs = {
-  pgcluster_instance_count = 3
+  pgcluster_instance_count = 2
 }

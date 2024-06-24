@@ -1,5 +1,6 @@
 terraform {
-  backend "swift" {
+  backend "local" {
+    path = "/home/cbenezech/development/dbstack/terraform/states/pgcluster.tfstate"
   }
 
   required_providers {

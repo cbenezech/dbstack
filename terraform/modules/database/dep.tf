@@ -1,9 +1,6 @@
 data "terraform_remote_state" "pgcluster" {
-  backend = "swift"
-
+  backend = "local"
   config = {
-    container = "cbenezech-gra-terraform-${var.cluster_name}-infra"
-    region_name = "GRA"
-    cloud = "openstack"
+    path = "/home/cbenezech/development/dbstack/terraform/states/pgcluster.tfstate"
   }
 }
