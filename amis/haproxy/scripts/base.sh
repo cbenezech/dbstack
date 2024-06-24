@@ -16,6 +16,6 @@ chmod +x /root/stack/haproxy/haproxy-cfg.sh
 systemctl enable haproxy-config
 
 # install pgadmin
-export PGADMIN_SETUP_EMAIL="charlesalban.benezech@gmail.com"
+export PGADMIN_SETUP_EMAIL="admin@exemple.com"
 export PGADMIN_SETUP_PASSWORD="123Hello"
 . /usr/pgadmin4/bin/setup-web.sh --yes

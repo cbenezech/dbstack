@@ -2,7 +2,7 @@
 # POSTGRESQL
 ###
 data "openstack_images_image_ids_v2" "pgcluster" {
-  name_regex  = "^cbenezech-postgresql*"
+  name_regex  = "^dbstack-postgresql*"
   sort        = "updated_at"
 }
 
@@ -29,7 +29,7 @@ data "template_cloudinit_config" "pgcluster" {
 # HAPROXY
 ###
 data "openstack_images_image_ids_v2" "haproxy" {
-  name_regex  = "^cbenezech-haproxy*"
+  name_regex  = "^dbstack-haproxy*"
   sort        = "updated_at"
 }
 

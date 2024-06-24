@@ -1,5 +1,5 @@
 data "openstack_images_image_ids_v2" "base" {
-  name_regex  = "^cbenezech-base*"
+  name_regex  = "^dbstack-base*"
   sort        = "updated_at"
 }
 
